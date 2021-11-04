@@ -25,9 +25,9 @@
 #define RFU_FCS_FIRST			WM_APP + 20
 #define RFU_FCS_NONE			RFU_FCS_FIRST
 
-#include "tray.h"
 #include "resource.h"
 #include "settings.h"
+#include "tray.h"
 
 #define MULTIBYTE
 

@@ -3,8 +3,6 @@
 #include <Windows.h>
 #include <shellapi.h>
 
-#include "resource.h"
-
 namespace UI
 {
 	void CreateHiddenConsole();
