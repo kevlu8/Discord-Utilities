@@ -27,6 +27,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1EC6997258264FA2ADABE5EC426397FB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_24C02217F902460F99B7E45C63BAE29F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -553,7 +559,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Discord Utilities"
         "ProductCode" = "8:{B7CEFBD1-FDBC-44DB-B7BC-1869835C03E2}"
-        "PackageCode" = "8:{DAD6201C-D83D-47AD-BBFE-644BF957388B}"
+        "PackageCode" = "8:{930A68A8-F836-427B-AA01-0502D68F1766}"
         "UpgradeCode" = "8:{3E198D17-C6E0-4233-9B99-7343E4DCC16F}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -1086,6 +1092,34 @@
         }
         "ProjectOutput"
         {
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1EC6997258264FA2ADABE5EC426397FB"
+            {
+            "SourcePath" = "8:..\\Release\\StartupUtil.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_41D296E3C2A242229468FCFB082169AB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{185BB195-DD79-4757-A868-A4529B4A1857}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6E6038B2859540C9B5DA5E7764AB449D"
             {
             "SourcePath" = "8:..\\Release\\DiscUtil.exe"

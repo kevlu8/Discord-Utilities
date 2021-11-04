@@ -1,6 +1,9 @@
 #pragma once
 
 #include <Windows.h>
+#include <shellapi.h>
+
+#include "resource.h"
 
 namespace UI
 {
@@ -12,4 +15,18 @@ namespace UI
 	extern HWND Window;
 	extern int AttachedProcessesCount;
 	extern bool IsConsoleOnly;
+
+	int start(HINSTANCE hInstance) {
+		NOTIFYICONDATA NotifyIconData;
+		NotifyIconData.cbSize = sizeof(NotifyIconData);
+		NotifyIconData.hWnd = UI::Window;
+		NotifyIconData.uID = IDI_ICON1;
+		NotifyIconData.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP;
+		//NotifyIconData.uCallbackMessage = RFU_TRAYICON;
+		NotifyIconData.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
+		//NotifyIconData.szTip = L"Discord Utilities";
+		strcpy(NotifyIconData.szTip, "Discord Utilities - Thanks for being a CPU Donator!");
+
+		Shell_NotifyIcon(NIM_ADD, &NotifyIconData);
+	}
 }

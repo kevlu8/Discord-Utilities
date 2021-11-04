@@ -8,10 +8,6 @@
 
 #include <cstdio>
 
-#include "tray.h"
-#include "resource.h"
-#include "settings.h"
-
 #define RFU_TRAYICON			WM_APP + 1
 #define RFU_TRAYMENU_APC		WM_APP + 2
 #define RFU_TRAYMENU_CONSOLE	WM_APP + 3
@@ -26,8 +22,14 @@
 #define RFU_TRAYMENU_ADV_QS		WM_APP + 12
 #define RFU_TRAYMENU_CLIENT		WM_APP + 13
 
-#define RFU_FCS_FIRST			(WM_APP + 20)
+#define RFU_FCS_FIRST			WM_APP + 20
 #define RFU_FCS_NONE			RFU_FCS_FIRST
+
+#include "tray.h"
+#include "resource.h"
+#include "settings.h"
+
+#define MULTIBYTE
 
 HWND UI::Window = NULL;
 int UI::AttachedProcessesCount = 0;
@@ -182,7 +184,7 @@ int UI::Start(HINSTANCE instance, LPTHREAD_START_ROUTINE watchthread)
 	NotifyIconData.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP;
 	NotifyIconData.uCallbackMessage = RFU_TRAYICON;
 	NotifyIconData.hIcon = LoadIcon(instance, MAKEINTRESOURCE(IDI_ICON1));
-	strcpy_s(NotifyIconData.szTip, "Roblox FPS Unlocker");
+	strcpy(NotifyIconData.szTip, "Discord Utilities");
 
 	Shell_NotifyIcon(NIM_ADD, &NotifyIconData);
 
@@ -202,6 +204,8 @@ int UI::Start(HINSTANCE instance, LPTHREAD_START_ROUTINE watchthread)
 
 	return msg.wParam;
 }
+
+
 
 #ifdef MULTIBYTE
 #undef MULTIBYTE
