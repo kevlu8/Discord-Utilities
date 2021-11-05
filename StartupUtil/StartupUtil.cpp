@@ -3,9 +3,6 @@
 #include "tray.h"
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    int e;
-    std::cout << "e";
-    UI::start(hInstance);
-    std::cin >> e;
+    UI::Start(hInstance);
     return 0;
 }

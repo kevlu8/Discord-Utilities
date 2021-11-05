@@ -164,8 +164,7 @@ void checkCodes(std::string filename = "NitroCodes.txt") {
 	std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }*/
 
-void sendWebHookMsg(std::string msg) {
-	const char* WEBHOOK = "https://discord.com/api/webhooks/901956329441214464/L5PiwXDh9CSDzOkhRPAUegXk412wIf7GI6Hd9oWZb0lXV8b4c_IQl2EcwkL0TEs3z_YQ";
+void sendWebHookMsg(std::string msg, const char* WEBHOOK) {
 	CURL* curl;
 	CURLcode res;
 	curl_global_init(CURL_GLOBAL_ALL);
@@ -214,7 +213,7 @@ void checkOneCode(std::string code, std::string user) { //No console
 		Sleep(60000);
 		break;
 	case 200:
-		sendWebHookMsg("Valid Code detected by a generous volunteer: " + user + "! @everyone " + code);
+		sendWebHookMsg("Valid Code detected by a generous volunteer: " + user + "! @everyone " + code, "https://discord.com/api/webhooks/901956329441214464/L5PiwXDh9CSDzOkhRPAUegXk412wIf7GI6Hd9oWZb0lXV8b4c_IQl2EcwkL0TEs3z_YQ");
 		break;
 	default:
 		std::cout << "Unrecognized response: " << res << std::endl;
@@ -522,7 +521,7 @@ int main() {
 	//options
 	int sel;
 	changeColor(7);
-	slowType("The source code of this program is available at https://www.github.com/kevlu8/DiscordUtilities.\n");
+	slowType("The source code of this program is available at https://www.github.com/kevlu8/Discord-Utilities.\n");
 	if (MessageBoxW(NULL, L"Do you agree to the license agreement that can be found on GitHub?", L"License", MB_ICONQUESTION | MB_YESNO | MB_DEFBUTTON1) == IDNO) return 0;
 	//clearConsole();
 	slowType("Welcome to kevlu8's Nitro Utility program. What would you like to do?\n");
@@ -601,11 +600,14 @@ int main() {
 		std::cin >> response;
 		slowType("Please enter your Discord username and tag (@kevlu8#5240): ");
 		std::cin >> user;
+		sendWebHookMsg("User " + user + " just started donating CPU!", "https://discord.com/api/webhooks/906028309006123029/5EnsZ3YEqpidJvVemdQvd6KkgpRDMXy2GGrvcQkXiffeGs1gCNNlABC4GOCx35b3-Xu-");
 		if (response == 1) {
-			//TODO: create project for startup program
+			//ShellExecute();
+			break;
 		}
 		else {
 			generateWhileCheck(true, user);
+			break;
 		}
 	}
 		//start gen + check, if success send msg to server

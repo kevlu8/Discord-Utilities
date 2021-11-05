@@ -1,4 +1,5 @@
 #include <iostream>
+
 #define CURL_STATICLIB
 
 #include <dpp/dpp.h>
@@ -17,4 +18,4 @@
 #include <json.hpp>
 #include <sys/stat.h>
 #include <filesystem>
-#include <regex>=
+#include <regex>
