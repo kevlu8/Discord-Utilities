@@ -20,8 +20,6 @@
 #include "tray.h"
 
 HWND UI::Window = NULL;
-int UI::AttachedProcessesCount = 0;
-bool UI::IsConsoleOnly = false;
 
 NOTIFYICONDATA NotifyIconData;
 
@@ -97,39 +95,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-bool IsConsoleVisible = false;
-
-void UI::SetConsoleVisible(bool visible)
-{
-	IsConsoleVisible = visible;
-	ShowWindow(GetConsoleWindow(), visible ? SW_SHOWNORMAL : SW_HIDE);
-}
-
-void UI::CreateHiddenConsole()
-{
-	AllocConsole();
-
-	freopen("CONOUT$", "w", stdout);
-	freopen("CONIN$", "r", stdin);
-
-	if (!UI::IsConsoleOnly)
-	{
-		HMENU menu = GetSystemMenu(GetConsoleWindow(), FALSE);
-		EnableMenuItem(menu, SC_CLOSE, MF_GRAYED);
-	}
-	SetConsoleVisible(false);
-}
-
-bool UI::ToggleConsole()
-{
-	if (!GetConsoleWindow())
-		UI::CreateHiddenConsole();
-
-	SetConsoleVisible(!IsConsoleVisible);
-
-	return IsConsoleVisible;
-}
-
 int UI::Start(HINSTANCE instance)
 {
 	WNDCLASSEX wcex;
@@ -149,7 +114,7 @@ int UI::Start(HINSTANCE instance)
 
 	RegisterClassEx(&wcex);
 	
-	UI::Window = CreateWindow("RFUClass", "Roblox FPS Unlocker", 0, 0, 0, 0, 0, NULL, NULL, instance, NULL);
+	UI::Window = CreateWindow("DiscUtil", "Discord Utilities", 0, 0, 0, 0, 0, NULL, NULL, instance, NULL);
 	if (!UI::Window)
 		return 0;
 
