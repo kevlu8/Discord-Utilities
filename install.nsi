@@ -16,10 +16,10 @@ Section
 	# install the program
 	SetOutPath "$INSTDIR\Discord Utilities\"
 
-	File /a /r "Release\"
+	File /a /r "x64\Release\"
 
 	WriteUninstaller "$INSTDIR\Discord Utilities\uninstall.exe"
-	CreateShortcut "$DESKTOP\Discord Utilities.lnk" "$INSTDIR\Discord\Utilities\DiscUtil.exe"
+	CreateShortcut "$DESKTOP\Discord Utilities.lnk" "$INSTDIR\Discord Utilities\DiscUtil.exe"
 
 SectionEnd
 

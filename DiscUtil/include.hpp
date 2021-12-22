@@ -1,7 +1,5 @@
+#pragma once
 #include <iostream>
-
-#define CURL_STATICLIB
-
 #include <dpp/dpp.h>
 #include <Windows.h>
 #include <fstream>

@@ -12,12 +12,26 @@ void checkCode(std::string filename = "NitroCodes.txt") {
 			std::string id = getId(line, "/");
 			std::string checkUrl = "https://www.discord.com/api/v6/entitlements/gift-codes/" + id + "?with_application=false&with_subscription_plan=true";
 
-			std::list<std::string> headers = {
-				"placeholder to make this not null"
-			};
-			std::string res = network::getRequest(checkUrl, headers);
+			int res = network::getRequest(checkUrl);
 
-			std::cout << "Result: " << res;
+			switch (res) {
+			case 404:
+				// Not valid
+				// TODO: Work on later, it's 11 PM and I'm too tired to think
+				break;
+			case 200:
+				// Valid
+				// TODO: Work on later
+				break;
+			case 429:
+				// Rate limited: wait 1 min
+				// TODO: Work on later
+				break;
+			default:
+				// Unrecognized: print & send webhook
+				// TODO: work on later
+				break;
+			}
 
 			/*
 			* Legend of response code

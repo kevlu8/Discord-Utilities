@@ -27,8 +27,9 @@ namespace network {
 	}
 
 	//Send GET request to given URL
-	std::string getRequest(std::string url, std::list<std::string> headers) {
-		cpr::Response res = cpr::Get(cpr::Url{url})
+	int getRequest(std::string url) {
+		cpr::Response res = cpr::Get(cpr::Url{ url });
+		return res.status_code;
 	}
 
 	void sendWebHookMsg(std::string msg, const char* WEBHOOK) {
