@@ -3,127 +3,34 @@
 #include "utilities.hpp"
 #include "codes.hpp"
 
-void checkCode(std::string filename = "NitroCodes.txt") {
-	std::string line;
-	std::ifstream codes(filename);
-
-	if (codes.is_open()) {
-		while (std::getline(codes, line)) {
-			std::string id = getId(line, "/");
-			std::string checkUrl = "https://www.discord.com/api/v6/entitlements/gift-codes/" + id + "?with_application=false&with_subscription_plan=true";
-
-			int res = network::getRequest(checkUrl);
-
-			switch (res) {
-			case 404:
-				// Not valid
-				// TODO: Work on later, it's 11 PM and I'm too tired to think
-				break;
-			case 200:
-				// Valid
-				// TODO: Work on later
-				break;
-			case 429:
-				// Rate limited: wait 1 min
-				// TODO: Work on later
-				break;
-			default:
-				// Unrecognized: print & send webhook
-				// TODO: work on later
-				break;
+int main(int argc, char* argv[]) {
+	std::string fileName;
+	std::ifstream lic("license.dat");
+	if (argc == 2 && strcmp(argv[1], "--startup") == 0) {
+		std::string user;
+		std::string line; 
+		std::ifstream settings("settings");
+		if (settings.is_open()) {
+			while (getline(settings, line)) {
+				user = line;
 			}
-
-			/*
-			* Legend of response code
-			* 404: Not found
-			* 200: OK
-			* 429: rate limited
-			*/
-		}
-	}
-}
-
-void checkOneCode(std::string code, std::string user, bool webhook = true) { //No console
-	CURL* curl = curl_easy_init();
-	std::string id = getId(code, "/");
-	std::string checkUrl = "https://www.discord.com/api/v6/entitlements/gift-codes/" + id + "?with_application=false&with_subscription_plan=true";
-
-	curl_easy_setopt(curl, CURLOPT_URL, checkUrl);
-
-	curl_easy_setopt(curl, CURLOPT_HTTPGET, 1L);
-
-	CURLcode res;
-	long responseCode;
-	res = curl_easy_perform(curl);
-	if (res == CURLE_OK) {
-		res = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &responseCode);
-	}
-	else {
-		slowType("Error performing request, are you connected to the internet?");
-		return;
-	}
-
-	std::cout << responseCode << std::endl;
-	switch (static_cast<int>(responseCode)) {
-	case 429:
-		Sleep(60000);
-		break;
-	case 200:
-		if (webhook)
-			network::sendWebHookMsg("Valid Code detected by a generous volunteer: " + user + "! @everyone " + code, "https://discord.com/api/webhooks/901956329441214464/L5PiwXDh9CSDzOkhRPAUegXk412wIf7GI6Hd9oWZb0lXV8b4c_IQl2EcwkL0TEs3z_YQ");
-		else {
-			const char* ccCode = code.c_str();
-			MessageBoxW(NULL, L"Valid code detected: " + *ccCode, L"Discord Utilities Notification", MB_OK | MB_ICONINFORMATION);
-		}
-		break;
-	default:
-		std::cout << "Unrecognized response: " << responseCode << std::endl;
-		break;
-	}
-	curl_easy_cleanup(curl);
-	curl_global_cleanup();
-}
-
-void generateWhileCheck(bool sendWebhook = false, std::string user = "anonymous") {
-	while (true) {
-		char tempCharsA[] = { "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890" };
-		char code[42] = { "https://www.discord.gift/" };
-		if (!sendWebhook) {
-			slowType("Working...");
-			for (int i = 0; i <= 16; i++) {
-				int random = rand() % 62;
-				code[25 + i] = tempCharsA[random];
-			}
-			std::string sCode(code);
-			checkOneCode(code, user, false);
 		}
 		else {
-			//Only on startup
-			for (int i = 0; i <= 16; i++) {
-				int random = rand() % 62;
-				code[25 + i] = tempCharsA[random];
-			}
-			std::string sCode(code);
-			checkOneCode(code, user, true);
+			slowType("You haven't ran [8] yet, or you have corrupted something!\n");
+			goto exit; //Pls no kill for bad practice
 		}
+		codes::generateWhileCheck(true, user);
 	}
-}
-
-void nitroSnipe(LPCSTR token) {
-	
-}
-
-int main() {
 	SetConsoleTitle(L"kevlu8's Discord Utilities");
 	SetPriorityClass(GetCurrentProcess(), HIGH_PRIORITY_CLASS);
 	//options
 	int sel;
 	changeColor(7);
 	slowType("The source code of this program is available at https://www.github.com/kevlu8/Discord-Utilities.\n");
-	std::string line; std::ifstream lic("license.dll"); if (lic.is_open()) { lic.close(); } //worst license checking EVER!!!
+	if (lic.is_open()) { lic.close(); } //worst license checking EVER!!!
 	else {
 		if (MessageBoxW(NULL, L"Do you agree to the license agreement that can be found on GitHub?", L"License", MB_ICONQUESTION | MB_YESNO | MB_DEFBUTTON1) == IDNO) return 0;
-		else { std::ofstream licensefile("license.dll"); licensefile << "true"; licensefile.close(); }
+		else { std::ofstream licensefile("license.dat"); licensefile << "true"; licensefile.close(); }
 	}
 	//clearConsole();
 	slowType("Welcome to kevlu8's Nitro Utility program. What would you like to do?\n");
@@ -144,14 +51,12 @@ int main() {
 	slowType("[7] Nitro Code Generator (Multithreaded, uses more CPU but generates codes faster)\n");
 	slowType("[8] Donate CPU power for community\n");
 	slowType("[0] Exit program\n");
-	slowType("WARNING: Only [1], [5], [6], [7], [0] are working so far\n");
+	slowType("WARNING: [4] is still in development.\n");
 	changeColor(7);
 	slowType("---------------------------------------\n");
 	std::cout << "Enter option: ";
 	std::cin >> sel;
 
-	//extra variables
-	std::string fileName;
 	int instances;
 
 	//actual code begins here
@@ -164,10 +69,10 @@ int main() {
 	case 2:
 		slowType("What is the name of the input file? ");
 		std::cin >> fileName;
-		checkCode(fileName);
+		codes::checkCode(fileName);
 		break;
 	case 3:
-		generateWhileCheck();
+		codes::generateWhileCheck();
 		break;
 	case 4: {
 		std::string token;
@@ -195,6 +100,7 @@ int main() {
 	case 7:
 		std::cout << "How many threads would you like? More = faster (Try to keep this under 50): ";
 		std::cin >> instances;
+		std::cout << "This function is an infinite loop. Once you feel that you have generated enough, press control+C to stop the program.";
 		multiThread(std::ref(instances));
 		break;
 	case 8: {
@@ -212,12 +118,18 @@ int main() {
 			LONG createStatus = RegCreateKey(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", &hkey);
 			LONG status = RegSetValueEx(hkey, L"Discord Utilities", 0, REG_SZ, (BYTE*)path.c_str(), (path.size() + 1) * sizeof(wchar_t));
 		}
-		ShellExecute(NULL, L"open", L"./StartupUtil.exe", NULL, NULL, 0);
+		std::ofstream settings("settings");
+		settings << user << std::endl;
+		settings.close();
+		ShellExecute(NULL, L"open", L"StartupUtil.exe", NULL, NULL, 0);
+		codes::generateWhileCheck(true, user);
 		break;
 	}
 	default:
 		slowType("That isn't an option!\n");
 	}
+	goto exit; //Horrible practice, i know...
+	exit:
 	slowType("Program is complete. Press enter to terminate.\n");
 	while (!_kbhit()) {
 		Sleep(100);

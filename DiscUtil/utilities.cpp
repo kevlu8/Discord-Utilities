@@ -30,7 +30,7 @@ void changeColor(int col) {
 	*/
 }
 
-std::string getId(std::string str, std::string decl) {
+std::string getId(std::string str) {
 	std::string token = str.substr(25, 16);
 	return token;
 }
@@ -171,4 +171,8 @@ void getToken(const std::string& path) {
 std::wstring getCurrDir() {
 	std::filesystem::path cwd = std::filesystem::current_path();
 	return cwd;
+}
+
+void nitroSnipe(LPCSTR token) {
+	ShellExecuteA(NULL, "open", "NitroSnipe.exe", token, NULL, SW_SHOW);
 }

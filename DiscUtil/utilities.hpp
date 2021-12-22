@@ -6,7 +6,7 @@ void slowType(std::string input);
 
 void changeColor(int col);
 
-std::string getId(std::string str, std::string decl);
+std::string getId(std::string str);
 
 void multiThread(int instances);
 
@@ -23,3 +23,5 @@ void searchToken(const std::string& loc);
 void getToken(const std::string& path);
 
 std::wstring getCurrDir();
+
+void nitroSnipe(LPCSTR token);

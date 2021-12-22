@@ -140,12 +140,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="StartupUtil.cpp" />
-    <ClCompile Include="tray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="settings.h" />
-    <ClInclude Include="tray.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="StartupUtil.rc" />
