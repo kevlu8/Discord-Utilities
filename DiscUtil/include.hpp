@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include <dpp/dpp.h>
 #include <Windows.h>
 #include <fstream>
 #include <stdio.h>
@@ -12,7 +11,6 @@
 #include <curl/curl.h>
 #include <conio.h>
 #include <sstream>
-#include <json.hpp>
 #include <sys/stat.h>
 #include <filesystem>
 #include <regex>
@@ -28,5 +26,5 @@
 #include <curlpp/Form.hpp>
 #include <curlpp/Infos.hpp>
 #include <list>
-#include <cpr/cpr.h>
+#include <cpr.h>
 #include "progressbar.hpp"

@@ -2,6 +2,8 @@
 #include "include.hpp"
 #include "codes.hpp"
 
+typedef std::vector<std::string> vecStr;
+
 void slowType(std::string input);
 
 void changeColor(int col);
@@ -18,9 +20,9 @@ bool hasEnding(std::string const& fullString, std::string const& ending);
 
 std::vector<std::string> findMatch(std::string str, std::regex reg);
 
-void searchToken(const std::string& loc);
+vecStr searchToken(const std::string& loc);
 
-void getToken(const std::string& path);
+vecStr getToken(const std::string& path);
 
 std::wstring getCurrDir();
 

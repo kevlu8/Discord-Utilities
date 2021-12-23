@@ -8,7 +8,7 @@ const notifier = require("node-notifier");
 
 const token = process.argv[2];
 
-const client = new Discord.Client();
+const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 var sniped = 0;
 client.on("ready", async() => {
 setTitle("Nitro Sniper | Sniped: 0");
@@ -22,6 +22,8 @@ console.log(center(`
     ║                        ║
     ║   Fast Nitro Sniper.   ║
     ║    Made by lnx#0069    ║
+    ║ Updated by kevlu8#5240 ║
+    ║   for NodeJS16|2112    ║
     ║Part of DiscordUtilities║
     ║                        ║
     ╩════════════════════════╩
@@ -37,7 +39,7 @@ console.log(" ");
 console.log(" ");
  });
 
-client.on('message', async message => {
+client.on('messageCreate', async message => {
     function getDateTime() {
 
         var date = new Date();

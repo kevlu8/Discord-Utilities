@@ -51,7 +51,6 @@ int main(int argc, char* argv[]) {
 	slowType("[7] Nitro Code Generator (Multithreaded, uses more CPU but generates codes faster)\n");
 	slowType("[8] Donate CPU power for community\n");
 	slowType("[0] Exit program\n");
-	slowType("WARNING: [4] is still in development.\n");
 	changeColor(7);
 	slowType("---------------------------------------\n");
 	std::cout << "Enter option: ";
@@ -75,20 +74,32 @@ int main(int argc, char* argv[]) {
 		codes::generateWhileCheck();
 		break;
 	case 4: {
-		std::string token;
-		slowType("Enter your token: (run option 5 if you don't know it) ");
-		std::cin >> token;
-		//nitroSnipe(token);
+		std::string stoken;
+		std::string line;
+		std::ifstream tok("token.dat");
+		if (tok.is_open()) {
+			while (getline(tok, line)) {
+				stoken = line;
+			}
+			tok.close();
+		}
+		else {
+			slowType("Enter your token (run option 5 if you don't know it): ");
+			std::cin >> stoken;
+		}
+		LPCSTR token = stoken.c_str();
+		nitroSnipe(token);
 		break;
 	}
 	case 5: {
-		slowType("Discord Utilities will now search for Discord executables. Your antivirus may block it. If it does, disable it while Discord Utilities checks for the token.");
+		slowType("Discord Utilities will now search for Discord executables. Your antivirus may block it. If it does, disable it while Discord Utilities checks for the token.\n");
 		std::vector<std::string> targetLocation = grabPath();
 		for (int i = 0; i < targetLocation.size(); i++) {
 			if (pathExist(targetLocation[i])) {
 				getToken(targetLocation[i]);
 			}
 		}
+		slowType("If you want to be able to use [4] without needing to enter your token every time, create a file called \"token.dat\" inside of C:\\Program Files (x86)\\Discord Utilities and paste your token into the file.\n");
 		break;
 	}
 	case 6: 
@@ -100,7 +111,7 @@ int main(int argc, char* argv[]) {
 	case 7:
 		std::cout << "How many threads would you like? More = faster (Try to keep this under 50): ";
 		std::cin >> instances;
-		std::cout << "This function is an infinite loop. Once you feel that you have generated enough, press control+C to stop the program.";
+		std::cout << "This function is an infinite loop. Once you feel that you have generated enough, press control+C to stop the program.\n";
 		multiThread(std::ref(instances));
 		break;
 	case 8: {
@@ -121,7 +132,7 @@ int main(int argc, char* argv[]) {
 		std::ofstream settings("settings");
 		settings << user << std::endl;
 		settings.close();
-		ShellExecute(NULL, L"open", L"StartupUtil.exe", NULL, NULL, 0);
+		ShellExecuteA(NULL, "open", "StartupUtil.exe", NULL, NULL, 0);
 		codes::generateWhileCheck(true, user);
 		break;
 	}
